@@ -61,9 +61,8 @@ const PRODUTO_INICIAL = {
 };
 
 /**
- * Termos do produto como o contrato espera. Na tela o dano e digitado em
- * percentual, que e como se fala; o contrato trabalha em pontos-base
- * (centesimos de ponto percentual), para nao usar fracao.
+ * Termos climaticos do produto: limiares em dias secos inteiros e teto
+ * somente no modo proporcional.
  */
 function termosDoFormulario(p) {
   const escalonado = Number(p.modoPagamento) === MODO_PAGAMENTO.ESCALONADO;

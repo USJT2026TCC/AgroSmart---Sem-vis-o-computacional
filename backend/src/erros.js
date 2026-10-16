@@ -46,14 +46,9 @@ const RESTRICOES = {
   talhoes_identificador_key: [409, "Ja existe um talhao com este identificador."],
   talhoes_identificador_check: [400, "O identificador do talhao precisa ter de 1 a 31 caracteres."],
   produto_limiar_climatico: [400, "Este operador exige um gatilho climatico maior que zero."],
-  produto_limiar_dano: [400, "Este operador exige um gatilho de dano maior que zero."],
   produto_teto_climatico: [
     400,
     "No modo escalonado, os dias para pagar 100% precisam ser maiores que o gatilho.",
-  ],
-  produto_teto_dano: [
-    400,
-    "No modo escalonado, o dano para pagar 100% precisa ser maior que o gatilho.",
   ],
   usuarios_carteira_key: [409, "Esta carteira ja esta vinculada a outro usuario."],
   usuarios_identificador_key: [409, "Ja existe um usuario com este identificador."],

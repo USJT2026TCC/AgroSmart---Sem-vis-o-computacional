@@ -25,7 +25,7 @@ function publicacao(extra = {}) {
   return {
     apolice: "0x75537828f2ce51be7289709686A69CbFDbB714F1",
     periodo: 20261015,
-    indices: { indiceClimatico: 31, indiceDanoBps: 0, confiancaBps: 9500 },
+    indices: { indiceClimatico: 31 },
     txHash: "0xabc",
     gasUsado: 172165n,
     bloco: 42,

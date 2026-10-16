@@ -57,31 +57,31 @@ Se a versão original estiver em execução nas mesmas portas, encerre seus proc
 
 ## Publicar clima com o oráculo
 
-Copie `oraculo/.env.example` para `.env`. Defina `CHAVE_PRIVADA_ORACULO` com a conta local 2 mostrada pelo Hardhat. O script de implantação autoriza essa conta no registro. Não envie o arquivo ao GitHub.
+Copie `oraculo/.env.example` para `.env`. Defina `CHAVE_PRIVADA_ORACULO` com a conta local 2 mostrada pelo Hardhat e `ENDERECO_APOLICE` com o endereço impresso na emissão da apólice. O script de implantação autoriza essa conta no registro. Não envie o arquivo ao GitHub.
 
 Com a apólice emitida pelo script:
 
 ```bash
 cd oraculo
-node src/index.js publicar --periodo 20261020 --cenario estiagem_severa
+node src/index.js publicar --cenario estiagem_severa
 ```
 
-O oráculo usa a última apólice de `contratos/implantacoes/localhost-apolices.json`. Também aceita `--apolice ENDERECO`. Para a fonte integrada, configure `API_URL=http://localhost:3001/api` e `CHAVE_DE_SERVICO` com o mesmo valor do backend, e use `--fonte backend`. Em desenvolvimento sem segredo personalizado no backend, o valor é `desenvolvimento-apenas-nao-use-em-producao`.
+O oráculo exige `ENDERECO_APOLICE` no `.env` ou `--apolice ENDERECO`; não seleciona automaticamente a última apólice. Sem `--periodo`, usa o dia atual em UTC. O exemplo acima gera um cenário sintético e não consulta sensores. Para a fonte integrada, configure `API_URL=http://localhost:3001/api` e `CHAVE_DE_SERVICO` com o mesmo valor do backend, e use `--fonte backend`. Em desenvolvimento sem segredo personalizado no backend, o valor é `desenvolvimento-apenas-nao-use-em-producao`.
 
-Para inserir a série histórica assinada de demonstração:
+Para inserir as leituras sintéticas assinadas do cenário de demonstração no backend:
 
 ```bash
 cd backend
 npm run enviar-leituras
 ```
 
-Confira no terminal a data final das leituras. Use esse período no comando de publicação; a data de referência identifica a série climática, enquanto a transação precisa ocorrer dentro da vigência da apólice.
+Confira no terminal a data final das leituras. Publique com `node src/index.js publicar --fonte backend --periodo AAAAMMDD`, substituindo `AAAAMMDD` pela data final impressa; a data de referência identifica a série climática, enquanto a transação precisa ocorrer dentro da vigência da apólice.
 
 O simulador MQTT é opcional; consulte `simulador/README.md`. Não há servidor de inferência para iniciar.
 
 ## Testar
 
-Execute `npm run testar` em contratos, oráculo, backend e app. Em `app`, execute também `npm run build`. Após compilar os contratos, execute `npm run testar:integracao` no oráculo e no backend. A demonstração isolada roda com `npx hardhat run scripts/demo-estiagem.js` em contratos.
+Execute `npm run testar` em contratos, oráculo, backend e app. Em `app`, execute também `npm run build`. Após compilar os contratos, execute `npm run testar:integracao` no oráculo e no backend. A demonstração isolada roda com `npx hardhat run scripts/demo-estiagem.js` em contratos. Para os testes Python, entre em `simulador`, instale `python -m pip install -e ".[dev]"` em um ambiente virtual e execute `python -m pytest`. Três testes exigem o ZIP INMET de 2024 e são ignorados quando ele não está disponível.
 
 ## Sepolia
 

@@ -1,6 +1,6 @@
 # Validação da versão climática
 
-Verificações executadas localmente na preparação desta versão, em 15 de outubro de 2026. Nenhuma nova implantação Sepolia foi feita.
+Verificações executadas localmente na preparação desta versão, em 15 e 16 de outubro de 2026. Nenhuma nova implantação Sepolia foi feita.
 
 | Componente | Verificação | Resultado |
 |---|---|---|
@@ -11,10 +11,17 @@ Verificações executadas localmente na preparação desta versão, em 15 de out
 | Aplicativo | Vitest e Testing Library | 65 testes aprovados |
 | Oráculo e blockchain | Nó Hardhat real e comandos do operador | 7 testes aprovados |
 | API e blockchain | Indexação, pagamento, cancelamento, idempotência e retomada | 5 testes aprovados |
+| Simulador Python | pytest | 42 testes aprovados; 3 ignorados por ausência do arquivo histórico INMET 2024 |
 | Aplicativo | Build Vite | Aprovado |
 | Demonstração climática | Emissão, garantia, publicação, liquidação e saldo do produtor | Aprovada, pagamento de 1 ETH de teste local |
 
-O simulador climático foi preservado; sua suíte Python não foi executada nesta preparação. Não foi repetida análise Slither nesta versão. Cobertura e testes não substituem auditoria de segurança.
+Total: 384 testes aprovados e 3 ignorados. Os três testes ignorados verificam cenários com o ZIP histórico de 2024, que não foi baixado neste ambiente. Não foi repetida análise Slither nesta versão. Cobertura e testes não substituem auditoria de segurança.
+
+## Fluxo integrado em ambiente novo
+
+Executado com nó Hardhat local, contratos recém-implantados, banco PGlite novo, API real, oráculo buscando leituras no backend e aplicativo servido pelo Vite. O teste fez autenticação dos perfis de desenvolvimento, cotação, proposta, emissão pela seguradora, depósito da garantia, ingestão de leituras sintéticas assinadas, publicação climática e indexação do pagamento.
+
+A apólice passou ao estado liquidada; o produtor recebeu exatamente 1,08 ETH de teste, igual ao limite cotado e ao valor registrado no contrato. Foram verificadas três notificações e a presença do hash das leituras na publicação. As transações foram assinadas programaticamente pelas contas públicas locais do Hardhat. O teste não automatizou cliques no navegador ou no MetaMask, não usou sensores físicos e não realizou transações na Sepolia.
 
 ## Medição local de gas
 

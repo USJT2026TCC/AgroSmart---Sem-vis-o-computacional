@@ -1,6 +1,6 @@
 # Dados climáticos
 
-As séries meteorológicas reproduzidas pelo simulador vêm do INMET, incluindo as estações A770 e A747. A demonstração usa leituras históricas; não representa instrumentação física instalada ou validação de uma safra real. Os cenários determinísticos continuam disponíveis para testes sem acesso à rede.
+As séries meteorológicas reproduzidas pelo simulador vêm do INMET, incluindo as estações A770 e A747. O simulador Python pode reproduzir essas leituras históricas após o download dos arquivos oficiais. Já `backend/scripts/enviar-leituras.js`, a fonte simulada do oráculo e a demonstração local dos contratos geram cenários sintéticos determinísticos. Nenhum desses fluxos representa instrumentação física instalada ou validação de uma safra real.
 
 Fonte oficial: https://portal.inmet.gov.br/dadoshistoricos
 

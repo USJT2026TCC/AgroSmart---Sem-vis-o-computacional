@@ -71,7 +71,7 @@ O prêmio é cobrado fora da cadeia. O contrato guarda a garantia depositada pel
 
 Esta versão muda a ABI e o esquema do banco. **Use um banco novo e implante contratos novos.** Não aponte para o banco ou para contratos antigos. O Docker usa banco, volume, contêiner e porta próprios. Nenhuma implantação Sepolia antiga foi reutilizada.
 
-O protótipo continua com oráculo de nó único. Assinaturas comprovam a origem dos dados, não a veracidade da medição. Fontes históricas reproduzidas não equivalem a sensores físicos instalados. A versão atual mantém publicação apenas dentro da vigência; uma falha que dure até depois dela pode impedir a publicação, e a fila não elimina esse limite. O custo e o tamanho do contrato precisam ser medidos novamente; os números da versão anterior não se aplicam.
+O protótipo continua com oráculo de nó único. Assinaturas comprovam a origem dos dados, não a veracidade da medição. Fontes históricas reproduzidas não equivalem a sensores físicos instalados. A versão atual mantém publicação apenas dentro da vigência; uma falha que dure até depois dela pode impedir a publicação, e a fila não elimina esse limite. As medições locais de gas desta versão estão em [Validação](docs/VALIDACAO.md); os números da versão anterior não se aplicam e não há medição de custo em rede principal ou L2.
 
 ## Documentação
 

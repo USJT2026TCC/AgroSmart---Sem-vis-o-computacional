@@ -144,10 +144,6 @@ describe("autenticacao e perfis", () => {
   test("sair encerra a sessao no servidor e localmente", async () => {
     const { chamadas } = await abrir("/produtor", {
       perfil: "produtor",
-      rotas: {
-        "GET /perito/analises": { analises: [] },
-        "GET /contestacoes": { contestacoes: [] },
-      },
     });
 
     fireEvent.click(await screen.findByRole("button", { name: "Sair" }));
