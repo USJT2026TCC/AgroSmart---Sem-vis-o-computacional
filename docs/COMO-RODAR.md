@@ -85,4 +85,44 @@ Execute `npm run testar` em contratos, oráculo, backend e app. Em `app`, execut
 
 ## Sepolia
 
-É necessário implantar nova infraestrutura desta versão e emitir novas apólices. Configure RPC e contas próprias nos `.env.example`, e execute `npm run implantar:sepolia` em contratos. Essa operação não foi executada como parte da preparação deste projeto; a validação registrada é local. Não copie os JSONs de implantação do repositório original.
+É necessário implantar nova infraestrutura desta versão e emitir novas apólices. As carteiras e o RPC podem ser os mesmos do projeto original; os endereços dos contratos e o banco precisam ser novos. Nenhuma implantação Sepolia foi executada nesta preparação: as credenciais privadas não estão no GitHub nem no ambiente de validação.
+
+### Reaproveitar a configuração do projeto original no Windows
+
+Tenha as duas pastas separadas no computador e atualize a nova com `git pull`. Abra o PowerShell na raiz da **nova versão** e execute:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\SEPOLIA.ps1
+```
+
+O comando pede o caminho da pasta original, instala as dependências, importa as configurações privadas, implanta a nova infraestrutura e sincroniza os endereços do aplicativo. A opção de execução vale somente para esse processo. O script usa `npm.cmd` no Windows, evitando o bloqueio de `npm.ps1`.
+
+O importador procura `.env.sepolia` e, se ele não existir, `.env` em cada módulo original. Exige `RPC_SEPOLIA`, a chave da seguradora, a chave do oráculo e `CHAVE_DE_SERVICO` da integração API/oráculo; confere as duas carteiras contra `contratos/implantacoes/sepolia.json` do original. Não gera carteiras, não copia os contratos antigos e não sobrescreve `.env` já existente na nova pasta. Se uma conferência falhar, leia o erro antes de continuar; nenhum segredo é exibido.
+
+O backend fica configurado para a Sepolia com PGlite novo em `backend/dados/sepolia-climatica/pg`, e o oráculo usa uma fila própria. A API local é `http://localhost:3001/api`; o aplicativo usa a Sepolia. Não são importados o banco original, sessões, caminhos de certificados, SMTP ou hospedagem. Essa configuração é para demonstração no computador. Inicie um projeto por vez nas portas padrão.
+
+Depois da implantação, o registro público está em `contratos/implantacoes/sepolia.json`. Inicie a API em `backend` com `npm.cmd run iniciar` e o aplicativo em `app` com `npm.cmd run dev`. Conecte MetaMask à Sepolia, entre como produtor e vincule sua carteira por assinatura; o banco novo ainda contém a carteira Hardhat da demonstração local até esse vínculo. Use a mesma carteira da seguradora para emitir as novas apólices. O script de preparação não emite apólices nem deposita garantias.
+
+Para publicar automaticamente os índices das apólices ativas, rode em `oraculo`:
+
+```bash
+node src/index.js servico
+```
+
+É necessário cadastrar/enviar leituras válidas para o talhão. A preparação não fabrica dados meteorológicos nem publica índices. Para testes com leituras sintéticas ou históricas, siga as seções anteriores e o README do simulador. No comando de publicação manual, informe o endereço da **nova** apólice; o endereço antigo não é importado.
+
+### Execução manual em outros sistemas
+
+Após `npm ci` nos quatro módulos, execute na raiz da nova versão:
+
+```bash
+node contratos/scripts/configurar-sepolia.js "CAMINHO_DA_PASTA_ORIGINAL"
+cd contratos
+npm run implantar:sepolia
+cd ../app
+npm run enderecos
+```
+
+Substitua o caminho pela pasta real. Os testes do importador rodam em `contratos` com `npm run testar:configuracao`. Eles usam somente credenciais públicas de desenvolvimento e RPC fictício sem conexão de rede; não validam o saldo ou a disponibilidade do seu RPC Sepolia.
+
+Sem a pasta privada original, configure os `.env.example` manualmente. Não envie chaves privadas ou frases de recuperação pelo chat e não versione os `.env`. Se uma implantação falhar após enviar alguma transação, confira os endereços e recibos no terminal antes de repetir, pois a execução pode ter ficado parcial.

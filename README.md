@@ -46,7 +46,7 @@ npm run testar
 npx hardhat run scripts/demo-estiagem.js
 ```
 
-A demonstração acima usa uma blockchain temporária em memória e não precisa de MetaMask ou dinheiro real. Para o aplicativo completo, siga [Como rodar](docs/COMO-RODAR.md).
+A demonstração acima usa uma blockchain temporária em memória e não precisa de MetaMask ou dinheiro real. Para o aplicativo completo, siga [Como rodar](docs/COMO-RODAR.md). Para reutilizar sua configuração Sepolia original, o guia inclui `SEPOLIA.ps1`, que importa os `.env` localmente e implanta contratos novos.
 
 ## Módulos
 
